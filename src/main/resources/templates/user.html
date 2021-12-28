@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/plugins/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- 头部查询区域 -->
+<div style="margin: 10px 0 0 10px">
+    用户名：
+    <div class="layui-inline">
+        <input id="searchUsername" type="text" name="username" class="layui-input"/>
+    </div>
+    <input type="button" id="searchBtn" class="layui-btn" value="查询"/>
+    <input type="button" id="addBtn" class="layui-btn" value="新增"/>
+</div>
+<table id="userTable" lay-filter="userTable1"></table>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/resources/js/user.js"></script>
+<!--
+双括号会被解析为thymeleaf模板
+方法一：html标签添加th:inline="none"
+方法二：使用src引入
+-->
+<!--<script type="text/javascript" th:inline="none">-->
+<!--    layui.use(['table',],function (){-->
+<!--       var table = layui.table;-->
+<!--        table.render({-->
+<!--            elem: '#userTable' //# + 元素id-->
+<!--            // ,height: 312-->
+<!--            ,url: '/user/list' //数据接口-->
+<!--            ,page: true //开启分页-->
+<!--            ,cols: [[ //表头   双括号会被解析为thymeleaf模板-->
+<!--                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}-->
+<!--                ,{field: 'username', title: '用户名', width:80}-->
+<!--                ,{field: 'sex', title: '性别', width:80, sort: true}-->
+<!--                ,{field: 'name', title: '姓名', width: 80, sort: true}-->
+<!--                ,{field: 'age', title: '年龄', width: 80, sort: true}-->
+<!--            ]]-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+</body>
+</html>

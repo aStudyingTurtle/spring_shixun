@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>登录页面</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="resources/css/global.css" />
+	<link rel="stylesheet" href="resources/css/login.css" />
+</head>
+<body class="beg-login-bg">
+	
+	<div class="beg-login-box">
+			<header>
+				<h1>后台登录</h1>
+			</header>
+			<div class="beg-login-main">
+				<form action="/login?cmd=checkLogin" class="layui-form" method="post">
+					<div class="layui-form-item">
+						<label class="beg-login-icon">
+                        <i class="layui-icon">&#xe612;</i>
+                    </label>
+						<input id="username" type="text" name="username" lay-verify="userName" autocomplete="off" placeholder="这里输入登录名" class="layui-input">
+					</div>
+					<div class="layui-form-item">
+						<label class="beg-login-icon">
+                        <i class="layui-icon">&#xe642;</i>
+                    </label>
+						<input type="password" name="password" lay-verify="password" autocomplete="off" placeholder="这里输入密码" class="layui-input">
+					</div>
+					<div class="layui-form-item">
+						<div class="beg-pull-left beg-login-remember">
+							<label>记住帐号？</label>
+							<input type="checkbox" name="rememberMe" value="true" lay-skin="switch" checked title="记住帐号">
+						</div>
+						<div class="beg-pull-right">
+							<button id="btnLogin" class="layui-btn layui-btn-primary" lay-submit lay-filter="login">
+                            <i class="layui-icon">&#xe650;</i> 登录
+                        </button>
+						</div>
+						<div class="beg-clear"></div>
+					</div>
+				</form>
+			</div>
+			<footer>
+				<p>青岛思途共享科技信息服务有限公司 © </p>
+			</footer>
+		</div>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script type="text/javascript">
+			
+			//layui.use
+		
+			layui.use(['form','layer'],function(){
+				var form = layui.form;
+				var layer = layui.layer;
+				var $ = layui.jquery;
+				$("#btnLogin").on("click",function(){
+					var username = $("#username").val();
+					console.log(username);
+					if(username == null || username == '' || username == undefined){
+						layer.alert("用户名不能为空");
+						return false;
+					}
+				});
+			});
+		</script>
+</body>
+</html>
