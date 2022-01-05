@@ -8,6 +8,7 @@ import learn.shixun.shixun1.mapper.UserMapper;
 import learn.shixun.shixun1.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -27,5 +28,21 @@ public class UserService {
         vo.setData(list);
         vo.setCount(pageInfo.getTotal());
         return vo;
+    }
+
+    public void doSave(User user) {
+        if (user.getId() == null)//用户不存在
+            userMapper.insert(user);
+        else {
+            userMapper.updateUser(user);
+        }
+    }
+
+    public void doDelete(@RequestParam(value = "id") Integer uid) {//@RequestParam(value = "id", required = false) 非必需
+        userMapper.deleteUser(uid);
+    }
+
+    public User selectUserById(Integer id) {
+        return userMapper.selectUserById(id);
     }
 }

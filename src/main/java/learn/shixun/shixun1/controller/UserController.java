@@ -1,13 +1,11 @@
 package learn.shixun.shixun1.controller;
 
+import learn.shixun.shixun1.entity.User;
 import learn.shixun.shixun1.service.UserService;
 import learn.shixun.shixun1.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 //用户控制器
 @Controller
@@ -31,5 +29,23 @@ public class UserController {
     public ResultVo selectUser(String keyword, Integer page, Integer limit) {
 
         return userService.selectUser(keyword, page, limit);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/save")
+    public void saveUser(User user) {
+        userService.doSave(user);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/del")
+    public void delUser(Integer id) {
+        userService.doDelete(id);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/{id}")
+    public User selectUserById(@PathVariable("id") Integer id) {
+        return userService.selectUserById(id);
     }
 }

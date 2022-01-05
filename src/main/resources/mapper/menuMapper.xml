@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--绑定mapper接口：配置类的全限定名-->
+<mapper namespace="learn.shixun.shixun1.mapper.MenuMapper">
+    <insert id="insert"> insert into menu(name, url, parent_id)
+                         values (#{name}, #{url}, #{parent_id})</insert>
+    <update id="updateMenu">update menu
+                            set name=#{name},
+                                url=#{url},
+                                parent_id=#{parent_id}
+                            where id = #{id}</update>
+    <delete id="deleteMenu">delete
+                            from menu
+                            where id = #{id}</delete>
+
+    <select id="selectMenu" resultType="learn.shixun.shixun1.entity.Menu">
+        select *
+        from menu
+        where id = #{id}
+    </select>
+
+    <select id="selectMenuById" resultType="learn.shixun.shixun1.entity.Menu">
+        SELECT * from menu
+        <if test="keyword != null and keyword !=''">
+            where instr(name,#{keyword}) >0
+        </if>
+    </select>
+    <!--    <select id="selectTopMenus" resultType="learn.shixun.shixun1.entity.Menu">-->
+    <!--        select * from menu where parent_id = 0;-->
+    <!--    </select>-->
+    <select id="selectByParentId" resultType="learn.shixun.shixun1.entity.Menu">
+        select *
+        from menu
+        where parent_id = #{id}
+    </select>
+    <resultMap id="menuTreeResultMap" type="learn.shixun.shixun1.vo.MenuTreeVo">
+        <!--        <result column="id" property="id"/>-->
+        <id column="id" property="id"/>
+        <result column="name" property="title"/>
+        <collection property="children" ofType="learn.shixun.shixun1.vo.MenuTreeVo">
+            <id column="subId" property="id"/>
+            <result column="subName" property="title"/>
+        </collection>
+    </resultMap>
+    <select id="selectMenuTree" resultMap="menuTreeResultMap">
+        select menu.id, menu.name, sub.id 'subId', sub.name 'subName'
+        from menu
+                 left join menu sub on sub.parent_id = menu.id
+        where menu.parent_id = 0
+    </select>
+</mapper>

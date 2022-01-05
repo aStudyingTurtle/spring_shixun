@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--绑定mapper接口：配置类的全限定名-->
+<mapper namespace="learn.shixun.shixun1.mapper.RoleMapper">
+    <insert id="insert">insert into role(name)
+                        values (#{name})</insert>
+
+    <update id="updateRole">update role
+                            set name=#{name}
+                            where id = #{id}</update>
+    <delete id="deleteRole">delete
+                            from role
+                            where id = #{id}</delete>
+    <select id="selectRoleById" resultType="learn.shixun.shixun1.entity.Role">
+        select *
+        from role
+        where id = #{id}
+    </select>
+    <select id="selectRole" resultType="learn.shixun.shixun1.entity.Role">
+        SELECT * from role
+        <if test="keyword != null and keyword !=''">
+            where instr(name,#{keyword}) >0
+        </if>
+    </select>
+</mapper>

@@ -3,10 +3,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--绑定mapper接口：配置类的全限定名-->
 <mapper namespace="learn.shixun.shixun1.mapper.UserMapper">
+    <insert id="insert">
+        insert into user(name, username, password, age, sex, birthday)
+        values (#{name}, #{username}, #{password}, #{age}, #{sex}, #{birthday})
+    </insert>
+    <update id="updateUser">
+        update user
+        set username=#{username},
+            name=#{name},
+            password=#{password},
+            age=#{age},
+            sex=#{sex},
+            birthday=#{birthday}
+        where id = #{id}
+    </update>
+    <delete id="deleteUser">delete
+                            from user
+                            where id = #{id}</delete>
     <select id="selectUser" resultType="learn.shixun.shixun1.entity.User">
         SELECT * from user
         <if test="keyword != null and keyword !=''">
             where instr(username,#{keyword}) >0
         </if>
+    </select>
+    <select id="selectUserById" resultType="learn.shixun.shixun1.entity.User">
+        select *
+        from user
+        where id = #{id}
     </select>
 </mapper>
